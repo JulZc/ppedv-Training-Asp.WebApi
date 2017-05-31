@@ -29,7 +29,7 @@ namespace WebApi_Course_ppedv.Controllers
         public IHttpActionResult Get()
         {
             List<Training> trainings = db.Trainings.Include(x => x.Category).ToList();
-            return Ok(trainings);
+            return Ok(trainings).Cached(Cacheability.Public, maxAge:TimeSpan.FromSeconds(20) );
         }
 
         //GET api/Trainings/3
