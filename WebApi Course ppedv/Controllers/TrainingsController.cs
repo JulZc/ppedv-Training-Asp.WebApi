@@ -44,6 +44,19 @@ namespace WebApi_Course_ppedv.Controllers
                 return Ok(training);
         }
 
+
+        public async Task<IHttpActionResult> GetByGenreId(int id)
+        {
+            List<Training> trainings = await db.Trainings.Include(t => t.Category).Where(t => t.CategoryId == id).ToListAsync();
+
+            if (!trainings.Any())
+                return BadRequest();
+
+            return Ok(trainings);
+
+        }
+
+
         //POST api/Trainings
         public async Task<IHttpActionResult> Post([FromBody]Training training)
         {
