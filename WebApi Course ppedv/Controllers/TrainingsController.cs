@@ -29,7 +29,7 @@ namespace WebApi_Course_ppedv.Controllers
         public IHttpActionResult Get()
         {
             List<Training> trainings = db.Trainings.Include(x => x.Category).ToList();
-            return Ok(trainings).Cached(Cacheability.Public, maxAge:TimeSpan.FromSeconds(20) );
+            return Ok(trainings).Cached(Cacheability.Public, maxAge: TimeSpan.FromSeconds(20));
         }
 
         //GET api/Trainings/3
@@ -58,10 +58,9 @@ namespace WebApi_Course_ppedv.Controllers
         //PUT api/Trainings/3
         public IHttpActionResult Put(int id, [FromBody] Training training)
         {
-            if (id != training.Id)
-            {
+            if (id != training.Id || !ModelState.IsValid)
                 return BadRequest();
-            }
+
 
             db.Entry(training).State = EntityState.Modified;
             db.SaveChanges();

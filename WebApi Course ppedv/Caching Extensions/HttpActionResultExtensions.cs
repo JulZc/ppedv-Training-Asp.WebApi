@@ -1,7 +1,4 @@
-﻿using Http_Caching.CachExtesions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web.Http;
 
 public static class HttpActionResultExtensions
