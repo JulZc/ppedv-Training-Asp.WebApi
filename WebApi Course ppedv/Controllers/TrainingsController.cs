@@ -8,9 +8,16 @@ using System.Data.Entity;
 using Trainings.Core;
 using System.Threading.Tasks;
 using System.Web.Http.OData;
+using System.Web.Http.Description;
 
 namespace WebApi_Course_ppedv.Controllers
 {
+    /// <summary>
+    /// Trainings API Documentation: 
+    /// Crud-Methods for all Entries. Entries are public 
+    /// and queryable but modifying Data  
+    /// is just for authenticated users. 
+    /// </summary>
     public class TrainingsController : ApiController
     {
         private readonly TrainingsContext db;
@@ -29,6 +36,7 @@ namespace WebApi_Course_ppedv.Controllers
 
         //GET api/Trainings
         [EnableQuery]
+        [ResponseType(typeof(List<Training>))]
         public async Task<IHttpActionResult> Get()
         {
             List<Training> trainings = await db.Trainings.Include(x => x.Category).ToListAsync();
@@ -36,6 +44,7 @@ namespace WebApi_Course_ppedv.Controllers
         }
 
         //GET api/Trainings/3
+        [ResponseType(typeof(Training))]
         public async Task<IHttpActionResult> Get(int id)
         {
             Training training = await db.Trainings.Include(x => x.Category).SingleOrDefaultAsync(t => t.Id == id);
@@ -46,6 +55,7 @@ namespace WebApi_Course_ppedv.Controllers
                 return Ok(training);
         }
 
+        [ResponseType(typeof(List<Training>))]
         [Route("api/category/{id:int}/trainings")]
         public async Task<IHttpActionResult> GetByGenre(int id)
         {
@@ -58,6 +68,7 @@ namespace WebApi_Course_ppedv.Controllers
 
         }
 
+        [ResponseType(typeof(List<Training>))]
         [Route("api/category/{name:alpha}/trainings")]
         public async Task<IHttpActionResult> GetByGenre(string name)
         {
@@ -73,6 +84,7 @@ namespace WebApi_Course_ppedv.Controllers
 
         //POST api/Trainings
         [Authorize]
+        [ResponseType(typeof(Training))]
         public async Task<IHttpActionResult> Post([FromBody]Training training)
         {
             if (!ModelState.IsValid)
@@ -86,6 +98,7 @@ namespace WebApi_Course_ppedv.Controllers
 
         //PUT api/Trainings/3
         [Authorize]
+        [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Put(int id, [FromBody] Training training)
         {
             if (id != training.Id || !ModelState.IsValid)
@@ -101,6 +114,7 @@ namespace WebApi_Course_ppedv.Controllers
 
         //DELETE api/Trainings/3
         [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Delete(int id)
         {
             var training = db.Trainings.Find(id);
