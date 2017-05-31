@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,12 @@ namespace WebApi_Selfhost_Course_ppedv
     {
         static void Main(string[] args)
         {
+            string baseAddress = "http://localhost:6666";
+
+            using (WebApp.Start<Startup>(baseAddress))
+            {
+                Console.ReadLine();
+            }
         }
     }
 }
