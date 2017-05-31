@@ -11,63 +11,74 @@ namespace WebApi_Course_ppedv.Controllers
 {
     public class TrainingsController : ApiController
     {
-        //GET api/Trainings
-        public IEnumerable<Training> Get()
+        private readonly TrainingsContext db;
+
+        public TrainingsController()
         {
-            using (var db = new TrainingsContext())
-            {
-                return db.Trainings.Include(x => x.Category).ToList();
-            }
+            db = new TrainingsContext();
+        }
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+        }
+
+
+
+
+        //GET api/Trainings
+        public IHttpActionResult Get()
+        {
+            List<Training> trainings = db.Trainings.Include(x => x.Category).ToList();
+            return Ok(trainings);
         }
 
         //GET api/Trainings/3
-        public Training Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            using (var db = new TrainingsContext())
-            {
-                return db.Trainings.Include(x => x.Category).SingleOrDefault(t => t.Id == id);
-            }
+            Training training = db.Trainings.Include(x => x.Category).SingleOrDefault(t => t.Id == id);
+
+            if (training == null)
+                return NotFound();
+            else
+                return Ok(training);
         }
 
         //POST api/Trainings
-        public void Post([FromBody]Training training)
+        public IHttpActionResult Post([FromBody]Training training)
         {
-            using (var db = new TrainingsContext())
-            {
-                db.Trainings.Add(training);
-                db.SaveChanges();
-            }
+            db.Trainings.Add(training);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = training.Id }, training);
         }
 
         //PUT api/Trainings/3
-        public void Put(int id, [FromBody] Training training)
+        public IHttpActionResult Put(int id, [FromBody] Training training)
         {
-            if(id != training.Id)
+            if (id != training.Id)
             {
-                return;
+                return BadRequest();
             }
 
-            using (var db = new TrainingsContext())
-            {
-                db.Entry(training).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(training).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Ok();
         }
 
 
         //DELETE api/Trainings/3
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            using (var db = new TrainingsContext())
-            {
-                var training = db.Trainings.Find(id);
+            var training = db.Trainings.Find(id);
 
-                if(training != null)
-                {
-                    db.Entry(training).State = EntityState.Deleted;
-                    db.SaveChanges();
-                }
-            }
+            if (training == null)
+                return NotFound();
+
+
+            db.Entry(training).State = EntityState.Deleted;
+            db.SaveChanges();
+            return Ok();
         }
     }
 }
