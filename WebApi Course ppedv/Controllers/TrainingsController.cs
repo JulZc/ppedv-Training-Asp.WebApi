@@ -70,6 +70,7 @@ namespace WebApi_Course_ppedv.Controllers
 
 
         //POST api/Trainings
+        [Authorize]
         public async Task<IHttpActionResult> Post([FromBody]Training training)
         {
             if (!ModelState.IsValid)
@@ -82,6 +83,7 @@ namespace WebApi_Course_ppedv.Controllers
         }
 
         //PUT api/Trainings/3
+        [Authorize]
         public async Task<IHttpActionResult> Put(int id, [FromBody] Training training)
         {
             if (id != training.Id || !ModelState.IsValid)
@@ -96,6 +98,7 @@ namespace WebApi_Course_ppedv.Controllers
 
 
         //DELETE api/Trainings/3
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> Delete(int id)
         {
             var training = db.Trainings.Find(id);
