@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
 using Trainings.Core;
+using System.Threading.Tasks;
 
 namespace WebApi_Course_ppedv.Controllers
 {
@@ -26,16 +27,16 @@ namespace WebApi_Course_ppedv.Controllers
 
 
         //GET api/Trainings
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            List<Training> trainings = db.Trainings.Include(x => x.Category).ToList();
+            List<Training> trainings = await db.Trainings.Include(x => x.Category).ToListAsync();
             return Ok(trainings).Cached(Cacheability.Public, maxAge: TimeSpan.FromSeconds(20));
         }
 
         //GET api/Trainings/3
-        public IHttpActionResult Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
-            Training training = db.Trainings.Include(x => x.Category).SingleOrDefault(t => t.Id == id);
+            Training training = await db.Trainings.Include(x => x.Category).SingleOrDefaultAsync(t => t.Id == id);
 
             if (training == null)
                 return NotFound();
@@ -44,33 +45,33 @@ namespace WebApi_Course_ppedv.Controllers
         }
 
         //POST api/Trainings
-        public IHttpActionResult Post([FromBody]Training training)
+        public async Task<IHttpActionResult> Post([FromBody]Training training)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             db.Trainings.Add(training);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = training.Id }, training);
         }
 
         //PUT api/Trainings/3
-        public IHttpActionResult Put(int id, [FromBody] Training training)
+        public async Task<IHttpActionResult> Put(int id, [FromBody] Training training)
         {
             if (id != training.Id || !ModelState.IsValid)
                 return BadRequest(ModelState);
 
 
             db.Entry(training).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok();
         }
 
 
         //DELETE api/Trainings/3
-        public IHttpActionResult Delete(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             var training = db.Trainings.Find(id);
 
@@ -79,7 +80,7 @@ namespace WebApi_Course_ppedv.Controllers
 
 
             db.Entry(training).State = EntityState.Deleted;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return Ok();
         }
     }
