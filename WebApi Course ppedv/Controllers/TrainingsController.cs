@@ -47,7 +47,7 @@ namespace WebApi_Course_ppedv.Controllers
         public IHttpActionResult Post([FromBody]Training training)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
             db.Trainings.Add(training);
             db.SaveChanges();
@@ -59,7 +59,7 @@ namespace WebApi_Course_ppedv.Controllers
         public IHttpActionResult Put(int id, [FromBody] Training training)
         {
             if (id != training.Id || !ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
 
             db.Entry(training).State = EntityState.Modified;
