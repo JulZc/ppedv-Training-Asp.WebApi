@@ -46,6 +46,9 @@ namespace WebApi_Course_ppedv.Controllers
         //POST api/Trainings
         public IHttpActionResult Post([FromBody]Training training)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             db.Trainings.Add(training);
             db.SaveChanges();
 
