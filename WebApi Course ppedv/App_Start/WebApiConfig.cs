@@ -21,8 +21,17 @@ namespace WebApi_Course_ppedv
             //Formattersettings
             config.Formatters.Add(new CsvFormatter());
 
+
+
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "",
+                routeTemplate: "api/category/{id}/trainings",
+                defaults: new {controller = "Trainings", action= "GetByGenreId" }
+            );
+
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
