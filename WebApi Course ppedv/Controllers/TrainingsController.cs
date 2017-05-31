@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Data.Entity;
 using Trainings.Core;
 using System.Threading.Tasks;
+using System.Web.Http.OData;
 
 namespace WebApi_Course_ppedv.Controllers
 {
@@ -27,6 +28,7 @@ namespace WebApi_Course_ppedv.Controllers
 
 
         //GET api/Trainings
+        [EnableQuery]
         public async Task<IHttpActionResult> Get()
         {
             List<Training> trainings = await db.Trainings.Include(x => x.Category).ToListAsync();
