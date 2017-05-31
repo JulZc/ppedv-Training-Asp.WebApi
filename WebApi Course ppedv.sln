@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core or Data", "Core or Dat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Api", "Web Api", "{AEA30684-4956-4132-AA24-87B094321869}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Api Selfhost", "Web Api Selfhost", "{48B12D5F-EA02-462C-9F47-F1E9FCE6D460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi Selfhost Course ppedv", "WebApi Selfhost Course ppedv\WebApi Selfhost Course ppedv.csproj", "{4CDEFA59-D424-4DED-B54A-1C8F7654A73E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{C432BC98-8865-49D1-B302-5304FC139D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C432BC98-8865-49D1-B302-5304FC139D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C432BC98-8865-49D1-B302-5304FC139D36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDEFA59-D424-4DED-B54A-1C8F7654A73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDEFA59-D424-4DED-B54A-1C8F7654A73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDEFA59-D424-4DED-B54A-1C8F7654A73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDEFA59-D424-4DED-B54A-1C8F7654A73E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A9358A1E-DCE8-4365-AB40-10059A7289F4} = {AEA30684-4956-4132-AA24-87B094321869}
 		{C432BC98-8865-49D1-B302-5304FC139D36} = {6A07C886-26CF-49D7-8DE4-BC2EEBDD917D}
+		{4CDEFA59-D424-4DED-B54A-1C8F7654A73E} = {48B12D5F-EA02-462C-9F47-F1E9FCE6D460}
 	EndGlobalSection
 EndGlobal
